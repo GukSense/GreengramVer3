@@ -11,7 +11,11 @@ import java.util.UUID;
 @Component
 public class CustomFileUtils {
     @Value("${file.directory}")
-    private String uploadPath;
+    public final String uploadPath;
+
+    public CustomFileUtils(@Value("${file.directory}")String uploadPath) {
+        this.uploadPath = uploadPath;
+    }
 
     //폴더생성
     public String makeFolderName(String path) {
@@ -42,6 +46,23 @@ public class CustomFileUtils {
     public void transferTo(MultipartFile mf, String target) throws IOException {
         File file = new File(uploadPath, target);
         mf.transferTo(file);
+    }
+
+    public void deleteFolder(String absoluteFolderPath) {
+        File folder = new File(absoluteFolderPath); //folderPath -> 상대주소
+        if (folder.exists() && folder.isDirectory()) { //파일이 존재하면 true 존재하지않으면 false && folder 객체가 폴더인지 파일인지 구분하기 위한 메소드
+            File[] files = folder.listFiles();
+
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    deleteFolder(f.getAbsolutePath());
+                } else {
+                    f.delete();
+                }
+            }
+            folder.delete();
+
+        }
     }
 
 }

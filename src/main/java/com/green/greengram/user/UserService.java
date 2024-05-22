@@ -1,10 +1,9 @@
 package com.green.greengram.user;
 
 import com.green.greengram.common.model.CustomFileUtils;
-import com.green.greengram.user.model.SignInPostReq;
-import com.green.greengram.user.model.SignInRes;
-import com.green.greengram.user.model.SignUpPostReq;
-import com.green.greengram.user.model.User;
+import com.green.greengram.user.model.*;
+import com.green.greengram.userfollow.model.UserInfoGetReq;
+import com.green.greengram.userfollow.model.UserInfoGetRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @Service
@@ -56,5 +57,30 @@ public class UserService {
         }
 
         return mapper.signInPost(p);
+    }
+
+    public UserInfoGetRes getUserInfo(UserInfoGetReq p) {
+        return mapper.selProfileUserInfo(p);
+    }
+    @Transactional
+    public String patchProfilePic(UserProfilePatchReq p){
+        String fileName = customFileUtils.makeRandomFileName(p.getPic());
+        p.setPicName(fileName);
+        mapper.updProfilePic(p);
+
+        //기존 폴더 삭제
+        try {
+        String folderPath = String.format("%s/user/%d", customFileUtils.uploadPath, p.getSignedUserId());
+        customFileUtils.deleteFolder(folderPath);
+
+        customFileUtils.makeFolderName(folderPath);
+        String filePath = String.format("%s/%s", folderPath, fileName);
+
+            customFileUtils.transferTo(p.getPic(), filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 }

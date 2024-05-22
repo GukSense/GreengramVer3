@@ -28,6 +28,9 @@
         ON          A.writer_id = B.user_id
         LEFT JOIN  feed_favorite C
         ON          A.feed_id = C.feed_id AND C.user_id = #{signedUserId}
+        <if test=" profileUserId != null and profileUserId > 0" >
+            WHERE A.writer_id = #{profileUserId}
+        </if>
         ORDER BY    A.feed_id DESC
         LIMIT       #{startIdx}, #{size}
     </select>

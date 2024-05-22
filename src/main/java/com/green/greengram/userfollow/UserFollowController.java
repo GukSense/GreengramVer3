@@ -39,15 +39,6 @@ public class UserFollowController {
                 .resultData(result).build();
     }
 
-    @GetMapping
-    public ResultDto<UserInfoGetRes> selProfileUserInfo(@ParameterObject @ModelAttribute UserInfoGetReq p) {
-        UserInfoGetRes result = service.selProfileUserInfo(p);
 
-        return ResultDto.<UserInfoGetRes>builder()
-                .statusCode(HttpStatus.OK)
-                .resultMsg("유저 프로필 정보")
-                .resultData(result)
-                .build();
-    }
 
 }

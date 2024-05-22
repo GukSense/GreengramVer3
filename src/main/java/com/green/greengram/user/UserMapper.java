@@ -1,9 +1,8 @@
 package com.green.greengram.user;
 
-import com.green.greengram.user.model.SignInPostReq;
-import com.green.greengram.user.model.SignInRes;
-import com.green.greengram.user.model.SignUpPostReq;
-import com.green.greengram.user.model.User;
+import com.green.greengram.user.model.*;
+import com.green.greengram.userfollow.model.UserInfoGetReq;
+import com.green.greengram.userfollow.model.UserInfoGetRes;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -13,4 +12,7 @@ public interface UserMapper {
     User getUserById(String p);
 
     SignInRes signInPost(SignInPostReq p);
+
+    UserInfoGetRes selProfileUserInfo(UserInfoGetReq p);
+    int updProfilePic(UserProfilePatchReq p);
 }
