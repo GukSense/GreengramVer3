@@ -2,8 +2,6 @@ package com.green.greengram.userfollow;
 
 import com.green.greengram.common.model.ResultDto;
 import com.green.greengram.userfollow.model.UserFollowReq;
-import com.green.greengram.userfollow.model.UserInfoGetReq;
-import com.green.greengram.userfollow.model.UserInfoGetRes;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("api/user/follow")
 @Tag(name = "팔로우",description = "")
-public class UserFollowController {
-    private final UserFollowService service;
+public class UserFollowControllerImpl implements UserFollowController{
+    private final UserFollowServiceImpl service;
 
+    @Override
     @PostMapping
     public ResultDto<Integer> postUserFollow(@RequestBody UserFollowReq p) {
         int result = service.postUserFollow(p);
@@ -29,6 +28,7 @@ public class UserFollowController {
                 .resultData(result).build();
     }
 
+    @Override
     @DeleteMapping
     public ResultDto<Integer> deleteUserFollow(@ParameterObject @ModelAttribute UserFollowReq p) {
         int result = service.deleteUserFollow(p);

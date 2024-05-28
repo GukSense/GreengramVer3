@@ -18,8 +18,8 @@ import java.util.List;
 @RequestMapping("/api/feed")
 @RequiredArgsConstructor
 @Tag(name = "피드", description = "피드 CRUD")
-public class FeedController {
-    private final FeedService service;
+public class FeedControllerImpl {
+    private final FeedServiceImpl service;
 
     @PostMapping
     @Operation(summary = "FEED 등록", description = "")

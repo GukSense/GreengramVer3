@@ -51,7 +51,7 @@ public class CustomFileUtils {
     public void deleteFolder(String absoluteFolderPath) {
         File folder = new File(absoluteFolderPath); //folderPath -> 상대주소
         if (folder.exists() && folder.isDirectory()) { //파일이 존재하면 true 존재하지않으면 false && folder 객체가 폴더인지 파일인지 구분하기 위한 메소드
-            File[] files = folder.listFiles();
+            File[] files = folder.listFiles(); // 지정 디렉토리의 파일 내용을 가져온다 만약 디렉토리가 아니면 null 반환
 
             for (File f : files) {
                 if (f.isDirectory()) {

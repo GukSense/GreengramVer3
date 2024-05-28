@@ -64,23 +64,25 @@ public class UserService {
     }
     @Transactional
     public String patchProfilePic(UserProfilePatchReq p){
-        String fileName = customFileUtils.makeRandomFileName(p.getPic());
-        p.setPicName(fileName);
-        mapper.updProfilePic(p);
+//        log.info("{}", p.getPic().getName());
+        String fileName = customFileUtils.makeRandomFileName(p.getPic()); // 파일명 랜덤변환
+        p.setPicName(fileName); // 랜덤파일명 객체에 저장
+        mapper.updProfilePic(p); // DB 유저 프로필 파일명 수정
 
         //기존 폴더 삭제
         try {
-        String folderPath = String.format("%s/user/%d", customFileUtils.uploadPath, p.getSignedUserId());
-        customFileUtils.deleteFolder(folderPath);
+        String midPath = String.format("user/%d",p.getSignedUserId()); //변경 유저의 프로필사진 파일이 저장되어있는경로
+        String delAbsolutePath = String.format("%s%s", customFileUtils.uploadPath, midPath);
+        customFileUtils.deleteFolder(delAbsolutePath); // 폴더 삭제, 파일 삭제
 
-        customFileUtils.makeFolderName(folderPath);
-        String filePath = String.format("%s/%s", folderPath, fileName);
+        customFileUtils.makeFolderName(midPath); // 경로 폴더 생성
+        String filePath = String.format("%s/%s", midPath, fileName);
 
-            customFileUtils.transferTo(p.getPic(), filePath);
+        customFileUtils.transferTo(p.getPic(), filePath); //경로에 파일 전송
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return null;
+        return fileName;
     }
 }

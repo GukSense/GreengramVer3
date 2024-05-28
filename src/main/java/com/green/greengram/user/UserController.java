@@ -4,6 +4,7 @@ import com.green.greengram.common.model.ResultDto;
 import com.green.greengram.user.model.*;
 import com.green.greengram.userfollow.model.UserInfoGetReq;
 import com.green.greengram.userfollow.model.UserInfoGetRes;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class UserController {
 
 
     @PostMapping("sign-up")
+    @Operation(summary = "회원가입", description = "")
     public ResultDto<Integer> signUpPost(@RequestPart MultipartFile pic,  @RequestPart SignUpPostReq p) {
         int result = service.signUpPost(pic, p);
 
@@ -55,8 +57,8 @@ public class UserController {
                 .build();
     }
 
-    @PatchMapping
-    public ResultDto<String> patchProfilePic(@RequestPart UserProfilePatchReq p) {
+    @PatchMapping(value = "pic")
+    public ResultDto<String> patchProfilePic(@ModelAttribute UserProfilePatchReq p) {
         String result = service.patchProfilePic(p);
 
         return ResultDto.<String>builder()

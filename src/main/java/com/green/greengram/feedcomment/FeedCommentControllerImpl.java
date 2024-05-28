@@ -7,7 +7,6 @@ import com.green.greengram.feedcomment.model.FeedCommentPostReq;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,8 @@ import java.util.List;
 @RequestMapping("api/feed/comment")
 @RequiredArgsConstructor
 @Tag(name = "댓글" , description = "댓글 CRUD")
-public class FeedCommentController {
-    private final FeedCommentService service;
+public class FeedCommentControllerImpl{
+    private final FeedCommentServiceImpl service;
 
     @PostMapping
     public ResultDto<Long> feedCommentPost(@RequestBody FeedCommentPostReq p) {

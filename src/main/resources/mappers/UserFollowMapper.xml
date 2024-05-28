@@ -13,4 +13,19 @@
         DELETE FROM user_follow WHERE from_user_id = #{fromUserId} AND to_user_id = #{toUserId}
     </delete>
 
+    <select id="selUserFollowForTest">
+        SELECT  from_user_id AS fromUserId,
+                to_user_id AS toUserId,
+                created_at AS createdAt
+        FROM    user_follow
+        <where> <!-- 동적쿼리 -->
+            <if test="fromUserId > 0">
+                from_user_id = #{fromUserId}
+            </if>
+            <if test="toUserId > 0">
+                AND to_user_id = #{toUserId}
+            </if>
+        </where>
+        ORDER BY from_user_id, to_user_id
+    </select>
 </mapper>

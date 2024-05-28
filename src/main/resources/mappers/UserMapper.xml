@@ -55,6 +55,6 @@
     <update id="updProfilePic">
         UPDATE  user
         SET     pic = #{picName}
-        WHERE   WHERE user_id = #{signedUserId}
+        WHERE   user_id = #{signedUserId}
     </update>
 </mapper>

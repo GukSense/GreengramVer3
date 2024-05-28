@@ -3,7 +3,6 @@ package com.green.greengram.feedfavorite;
 import com.green.greengram.common.model.ResultDto;
 import com.green.greengram.feedfavorite.model.FeedFavoriteToggleReq;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api/feed/favorite")
 @Tag(name = "좋아요기능", description = "")
-public class FeedFavoriteController {
-    private final FeedFavoriteService service;
+public class FeedFavoriteControllerImpl {
+    private final FeedFavoriteServiceImpl service;
     @GetMapping
     public ResultDto<Integer> toggleFavorite(@ParameterObject @ModelAttribute FeedFavoriteToggleReq p) {
 

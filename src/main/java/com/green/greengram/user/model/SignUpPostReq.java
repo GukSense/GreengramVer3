@@ -14,6 +14,7 @@ public class SignUpPostReq {
     private long userId;
     @JsonIgnore
     private String pic; // 프로필 사진 이름
+
     @Schema(example = "유저아이디", description = "abc1234", requiredMode = Schema.RequiredMode.REQUIRED)
     private String uid;
     @Schema(example = "유저비밀번호", description = "1234", requiredMode = Schema.RequiredMode.REQUIRED)

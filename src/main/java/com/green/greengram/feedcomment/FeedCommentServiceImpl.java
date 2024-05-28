@@ -1,7 +1,6 @@
 package com.green.greengram.feedcomment;
 
 import com.green.greengram.common.GlobalConst;
-import com.green.greengram.feed.FeedMapper;
 import com.green.greengram.feedcomment.model.FeedCommentDelReq;
 import com.green.greengram.feedcomment.model.FeedCommentGetRes;
 import com.green.greengram.feedcomment.model.FeedCommentPostReq;
@@ -14,7 +13,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class FeedCommentService {
+public class FeedCommentServiceImpl {
     private final FeedCommentMapper mapper;
 
     public long feedCommentPost(FeedCommentPostReq p) {

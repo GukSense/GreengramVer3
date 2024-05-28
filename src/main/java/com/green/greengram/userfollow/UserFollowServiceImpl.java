@@ -10,18 +10,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserFollowService {
+public class UserFollowServiceImpl implements UserFollowerService{
     private final UserFollowMapper mapper;
 
+    @Override
     public int postUserFollow(UserFollowReq p) {
         return mapper.insUserFollow(p);
     }
-
+    @Override
     public int deleteUserFollow(UserFollowReq p) {
         return mapper.deleteUserFollow(p);
     }
 
-    public UserInfoGetRes selProfileUserInfo(UserInfoGetReq p) {
-        return mapper.selProfileUserInfo(p);
-    }
 }
